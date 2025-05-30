@@ -6,7 +6,6 @@ import com.example.CandleShop.entity.WishlistItem;
 import com.example.CandleShop.repository.ProductRepository;
 import com.example.CandleShop.repository.UserRepository;
 import com.example.CandleShop.repository.WishlistRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,24 +14,27 @@ import java.util.List;
 @Service
 public class WishlistService {
 
-    @Autowired
-    private WishlistRepository wishlistRepository;
+    private final WishlistRepository wishlistRepository;
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public WishlistService(WishlistRepository wishlistRepository, ProductRepository productRepository, UserRepository userRepository) {
+        this.wishlistRepository = wishlistRepository;
+        this.productRepository = productRepository;
+        this.userRepository = userRepository;
+    }
 
     public List<WishlistItem> getWishlistByUserId(Long userId) {
         return wishlistRepository.findByUserId(userId);
     }
 
     @Transactional
-    public WishlistItem addToWishlist(Long userId, Long productId) {
+    public void addToWishlist(Long userId, Long productId) {
         // Kiểm tra xem sản phẩm đã có trong wishlist chưa
         if (wishlistRepository.existsByUserIdAndProductId(userId, productId)) {
-            return null; // Đã tồn tại trong wishlist
+            return; // Đã tồn tại trong wishlist
         }
 
         User user = userRepository.findById(userId)
@@ -42,7 +44,7 @@ public class WishlistService {
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm với ID: " + productId));
 
         WishlistItem wishlistItem = new WishlistItem(user, product);
-        return wishlistRepository.save(wishlistItem);
+        wishlistRepository.save(wishlistItem);
     }
 
     @Transactional

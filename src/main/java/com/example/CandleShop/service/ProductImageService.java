@@ -19,11 +19,14 @@ import java.util.UUID;
 @Service
 public class ProductImageService {
 
-    @Autowired
-    private ProductImageRepository productImageRepository;
+    private final ProductImageRepository productImageRepository;
 
     @Value("${upload.path}")
     private String uploadPath;
+
+    public ProductImageService(ProductImageRepository productImageRepository) {
+        this.productImageRepository = productImageRepository;
+    }
 
     public List<ProductImage> getImagesByProductId(Long productId) {
         return productImageRepository.findByProductId(productId);

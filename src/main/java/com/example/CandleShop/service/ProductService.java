@@ -16,12 +16,15 @@ import java.util.List;
 @Service
 public class ProductService {
 
-    @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private ProductSizeRepository productSizeRepository;
-    @Autowired
-    private ProductImageRepository productImageRepository;
+    private final ProductRepository productRepository;
+    private final ProductSizeRepository productSizeRepository;
+    private final ProductImageRepository productImageRepository;
+
+    public ProductService(ProductRepository productRepository, ProductSizeRepository productSizeRepository, ProductImageRepository productImageRepository) {
+        this.productRepository = productRepository;
+        this.productSizeRepository = productSizeRepository;
+        this.productImageRepository = productImageRepository;
+    }
 
     public Product getProductById(Long id) {
         return productRepository.findById(id)

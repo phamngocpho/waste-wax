@@ -17,14 +17,17 @@ import java.util.Random;
 @Service
 public class OilExchangeService {
 
-    @Autowired
-    private OilExchangeRepository oilExchangeRepository;
+    private final OilExchangeRepository oilExchangeRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     private static final int POINTS_PER_LITER = 10;
     private static final double MINIMUM_OIL_AMOUNT = 5.0;
+
+    public OilExchangeService(OilExchangeRepository oilExchangeRepository, UserRepository userRepository) {
+        this.oilExchangeRepository = oilExchangeRepository;
+        this.userRepository = userRepository;
+    }
 
     // Tạo mã trao đổi dầu
     private String generateExchangeNumber() {

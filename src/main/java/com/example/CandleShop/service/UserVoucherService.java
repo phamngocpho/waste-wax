@@ -12,8 +12,11 @@ import java.util.Optional;
 @Service
 public class UserVoucherService {
 
-    @Autowired
-    private UserVoucherRepository userVoucherRepository;
+    private final UserVoucherRepository userVoucherRepository;
+
+    public UserVoucherService(UserVoucherRepository userVoucherRepository) {
+        this.userVoucherRepository = userVoucherRepository;
+    }
 
     public List<UserVoucher> getAvailableVouchersByUserId(Long userId) {
         return userVoucherRepository.findByUserIdOrderByIsUsedAscExpiryDateDesc(

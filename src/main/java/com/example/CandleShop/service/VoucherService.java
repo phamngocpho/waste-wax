@@ -21,14 +21,17 @@ import java.util.Optional;
 @Service
 public class VoucherService {
 
-    @Autowired
-    private VoucherRepository voucherRepository;
+    private final VoucherRepository voucherRepository;
 
-    @Autowired
-    private UserVoucherRepository userVoucherRepository;
+    private final UserVoucherRepository userVoucherRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public VoucherService(VoucherRepository voucherRepository, UserVoucherRepository userVoucherRepository, UserRepository userRepository) {
+        this.voucherRepository = voucherRepository;
+        this.userVoucherRepository = userVoucherRepository;
+        this.userRepository = userRepository;
+    }
 
     // ADMIN: Lấy tất cả voucher
     public List<Voucher> getAllVouchers() {

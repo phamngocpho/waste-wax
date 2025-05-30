@@ -10,8 +10,11 @@ import java.util.Optional;
 
 @Service
 public class PaymentMethodService {
-    @Autowired
-    private PaymentMethodRepository paymentMethodRepository;
+    private final PaymentMethodRepository paymentMethodRepository;
+
+    public PaymentMethodService(PaymentMethodRepository paymentMethodRepository) {
+        this.paymentMethodRepository = paymentMethodRepository;
+    }
 
     public PaymentMethod findById(Long id) {
         Optional<PaymentMethod> paymentMethod = paymentMethodRepository.findById(id);

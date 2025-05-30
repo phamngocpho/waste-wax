@@ -11,8 +11,11 @@ import java.util.Optional;
 @Service
 public class ProductSizeService {
 
-    @Autowired
-    private ProductSizeRepository productSizeRepository;
+    private final ProductSizeRepository productSizeRepository;
+
+    public ProductSizeService(ProductSizeRepository productSizeRepository) {
+        this.productSizeRepository = productSizeRepository;
+    }
 
     public List<ProductSize> getSizesByProductId(Long productId) {
         return productSizeRepository.findByProductId(productId);

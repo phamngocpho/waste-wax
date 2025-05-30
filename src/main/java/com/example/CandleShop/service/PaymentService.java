@@ -14,13 +14,16 @@ import java.time.LocalDateTime;
 @Service
 public class PaymentService {
 
-    @Autowired
-    private PaymentRepository paymentRepository;
+    private final PaymentRepository paymentRepository;
 
-    @Autowired
-    private OrderService orderService;
-    @Autowired
-    private PaymentMethodRepository paymentMethodRepository;
+    private final OrderService orderService;
+    private final PaymentMethodRepository paymentMethodRepository;
+
+    public PaymentService(PaymentRepository paymentRepository, OrderService orderService, PaymentMethodRepository paymentMethodRepository) {
+        this.paymentRepository = paymentRepository;
+        this.orderService = orderService;
+        this.paymentMethodRepository = paymentMethodRepository;
+    }
 
     public Payment save(Payment payment) {
         return paymentRepository.save(payment);
