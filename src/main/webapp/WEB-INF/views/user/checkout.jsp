@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -24,7 +24,7 @@
     </script>
 </head>
 <body class="bg-gray-50">
-<jsp:include page="layouts/nav.jsp" />
+<jsp:include page="layouts/nav.jsp"/>
 
 <div class="max-w-7xl mx-auto px-4 py-8">
     <h1 class="text-2xl font-semibold mb-6">Thanh toán</h1>
@@ -69,11 +69,13 @@
                                 <div class="mt-2 space-y-1">
                                     <div class="flex justify-between text-sm">
                                         <span>Đơn giá:</span>
-                                        <span><fmt:formatNumber value="${item.price}" type="currency" currencySymbol="₫"/></span>
+                                        <span><fmt:formatNumber value="${item.price}" type="currency"
+                                                                currencySymbol="₫"/></span>
                                     </div>
                                     <div class="flex justify-between text-sm">
                                         <span>Thành tiền:</span>
-                                        <span><fmt:formatNumber value="${item.total}" type="currency" currencySymbol="₫"/></span>
+                                        <span><fmt:formatNumber value="${item.total}" type="currency"
+                                                                currencySymbol="₫"/></span>
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +114,8 @@
                         <div class="flex justify-between font-bold text-lg border-t pt-2">
                             <span>Tổng thanh toán:</span>
                             <span id="final-total" class="text-brown-600">
-                                <fmt:formatNumber value="${totalAmount + shippingFee}" type="currency" currencySymbol="₫"/>
+                                <fmt:formatNumber value="${totalAmount + shippingFee}" type="currency"
+                                                  currencySymbol="₫"/>
                             </span>
                         </div>
                     </div>
@@ -135,7 +138,9 @@
                                             <div class="text-sm text-gray-600">
                                                 Giảm ${userVoucher.voucher.discountPercent}%
                                                 <c:if test="${userVoucher.voucher.maxDiscountAmount != null}">
-                                                    (tối đa <fmt:formatNumber value="${userVoucher.voucher.maxDiscountAmount}" type="currency" currencySymbol="₫"/>)
+                                                    (tối đa <fmt:formatNumber
+                                                        value="${userVoucher.voucher.maxDiscountAmount}" type="currency"
+                                                        currencySymbol="₫"/>)
                                                 </c:if>
                                             </div>
                                             <div class="text-xs text-gray-500">
@@ -157,15 +162,19 @@
                 </c:choose>
 
                 <!-- Hiển thị voucher đã áp dụng -->
-                <div id="applied-voucher" class="mt-4 p-3 bg-green-50 rounded-lg border border-green-200" style="display: none;">
+                <div id="applied-voucher" class="mt-4 p-3 bg-green-50 rounded-lg border border-green-200"
+                     style="display: none;">
                     <div class="flex justify-between items-center">
                         <div>
-                            <div class="text-green-700 font-medium">Đã áp dụng mã: <span id="applied-voucher-code"></span></div>
+                            <div class="text-green-700 font-medium">Đã áp dụng mã: <span
+                                    id="applied-voucher-code"></span></div>
                             <div id="applied-voucher-discount" class="text-sm text-green-600"></div>
                         </div>
                         <button id="remove-voucher" class="text-red-600 hover:text-red-800">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M6 18L18 6M6 6l12 12"/>
                             </svg>
                         </button>
                     </div>
@@ -180,22 +189,24 @@
 
                 <form id="checkout-form" method="post" action="${pageContext.request.contextPath}/place-order">
                     <div class="space-y-4">
+                        Copy
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Full name of recipient</label>
-                            <input type="text" name="fullName" id="fullName" value="${fullName}" required
+                            <label for="shippingName" class="block text-sm font-medium text-gray-700 mb-1">Full name of
+                                recipient</label>
+                            <input type="text" name="shippingName" id="shippingName" value="${fullName}" required
                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-brown-600 focus:border-brown-600">
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Phone number</label>
-                            <input type="tel" name="phone" id="phone" value="${phone}"
+                            <label for="shippingPhone" class="block text-sm font-medium text-gray-700 mb-1">Phone
+                                number</label>
+                            <input type="tel" name="shippingPhone" id="shippingPhone" value="${phone}" required
                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-brown-600 focus:border-brown-600">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Your Email</label>
-                            <label for="email"></label>
-                            <input type="tel" name="email" id="email" value="${email}"
-                                                              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-brown-600 focus:border-brown-600">
+                            <input type="email" name="customerEmail" id="email" value="${email}" required
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-brown-600 focus:border-brown-600">
                         </div>
 
                         <div>
@@ -227,10 +238,12 @@
                         <!-- Hidden fields for checkout data -->
                         <input type="hidden" id="applied-voucher-id" name="userVoucherId">
                         <input type="hidden" id="discount-value" name="discountAmount" value="0">
-                        <input type="hidden" id="final-total-value" name="finalAmount" value="${totalAmount + shippingFee}">
+                        <input type="hidden" id="final-total-value" name="finalAmount"
+                               value="${totalAmount + shippingFee}">
 
                         <div class="pt-4">
-                            <button type="submit" class="w-full bg-brown-600 text-white py-2 px-4 rounded-md hover:bg-brown-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brown-600">
+                            <button type="submit"
+                                    class="w-full bg-brown-600 text-white py-2 px-4 rounded-md hover:bg-brown-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brown-600">
                                 Đặt hàng
                             </button>
                         </div>
@@ -242,9 +255,9 @@
 </div>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Áp dụng voucher
-        $('.apply-voucher').click(function() {
+        $('.apply-voucher').click(function () {
             const userVoucherId = $(this).data('id');
 
             $.ajax({
@@ -253,7 +266,7 @@
                 data: {
                     userVoucherId: userVoucherId
                 },
-                success: function(response) {
+                success: function (response) {
                     if (response.success) {
                         // Hiển thị thông tin giảm giá
                         $('#discount-section').show();
@@ -279,14 +292,14 @@
                         alert(response.message);
                     }
                 },
-                error: function() {
+                error: function () {
                     alert('Có lỗi xảy ra khi áp dụng voucher');
                 }
             });
         });
 
         // Xóa voucher đã áp dụng
-        $('#remove-voucher').click(function() {
+        $('#remove-voucher').click(function () {
             // Ẩn thông tin giảm giá
             $('#discount-section').hide();
             $('#applied-voucher').hide();

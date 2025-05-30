@@ -9,6 +9,8 @@ import com.example.CandleShop.service.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpSession;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +39,7 @@ public class CheckoutController {
     private PaymentMethodService paymentMethodService;
     @Autowired
     private PaymentService paymentService;
+    private static final Log log = LogFactory.getLog(CheckoutController.class);
 
     @PostMapping("/checkout")
     public String processCheckout(@RequestParam("selectedItems") String selectedItemsJson,
@@ -104,6 +107,7 @@ public class CheckoutController {
         model.addAttribute("fullName", user.getFullName());
         model.addAttribute("phone", user.getPhone());
         model.addAttribute("email", user.getEmail());
+        model.addAttribute("address", user.getAddress());
         List<UserVoucher> availableVouchers = userVoucherService.getUsableVouchers(user.getId());
         model.addAttribute("availableVouchers", availableVouchers);
 
@@ -200,6 +204,12 @@ public class CheckoutController {
                              HttpSession session,
                              RedirectAttributes redirectAttributes) {
         try {
+            log.info("=== DEBUG EMAIL CHECKOUT ===");
+            log.info("OrderDTO customerEmail: '" + orderDTO.getCustomerEmail() + "'");
+            log.info("OrderDTO shippingName: '" + orderDTO.getShippingName() + "'");
+            log.info("OrderDTO shippingAddress: '" + orderDTO.getShippingAddress() + "'");
+            log.info("OrderDTO shippingPhone: '" + orderDTO.getShippingPhone() + "'");
+            log.info("OrderDTO paymentMethodId: " + orderDTO.getPaymentMethodId());
             // Lấy thông tin người dùng từ session
             Long userId = (Long) session.getAttribute("userId");
             if (userId == null) {
@@ -227,6 +237,7 @@ public class CheckoutController {
             order.setFinalAmount(finalAmount);
             order.setShippingAddress(orderDTO.getShippingAddress());
             order.setShippingPhone(orderDTO.getShippingPhone());
+            order.setCustomerEmail(orderDTO.getCustomerEmail());
             order.setShippingName(orderDTO.getShippingName());
             order.setOrderStatus(OrderStatus.PENDING);
             order.setPaymentStatus(PaymentStatus.PAID);

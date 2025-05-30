@@ -26,6 +26,7 @@ public class OrderService {
     public List<Order> getOrdersByUserId(Long userId) {
         return orderRepository.findByUserIdOrderByCreatedAtDesc(userId);
     }
+
     public Page<Order> getOrdersByFilters(
             OrderStatus status, LocalDateTime fromDate, LocalDateTime toDate,
             int page, int size) {
@@ -36,6 +37,7 @@ public class OrderService {
     public Order getOrderById(Long id) {
         return orderRepository.findById(id).orElse(null);
     }
+
     @Transactional
     public void deleteOrder(Long id) {
         Order order = orderRepository.findById(id)
@@ -48,6 +50,7 @@ public class OrderService {
     public Order save(Order order) {
         return orderRepository.save(order);
     }
+
     @Transactional
     public Order createOrder(Order order, List<CheckoutDTO> checkoutItems) {
         if (order.getShippingName() == null && order.getUser() != null) {
@@ -59,10 +62,19 @@ public class OrderService {
             order.setShippingPhone(order.getUser().getPhone());
         }
 
-        // Kiểm tra các trường bắt buộc
-        if (order.getShippingName() == null || order.getShippingPhone() == null || order.getShippingAddress() == null) {
-            throw new IllegalArgumentException("Thông tin giao hàng không được để trống");
+        // Kiểm tra từng trường một cách chi tiết
+        if (order.getShippingName() == null || order.getShippingName().trim().isEmpty()) {
+            throw new IllegalArgumentException("Tên người nhận không được để trống");
         }
+
+        if (order.getShippingPhone() == null || order.getShippingPhone().trim().isEmpty()) {
+            throw new IllegalArgumentException("Số điện thoại người nhận không được để trống");
+        }
+
+        if (order.getShippingAddress() == null || order.getShippingAddress().trim().isEmpty()) {
+            throw new IllegalArgumentException("Địa chỉ giao hàng không được để trống");
+        }
+
         // Tạo mã đơn hàng
         String orderNumber = generateOrderNumber();
         order.setOrderNumber(orderNumber);
@@ -104,8 +116,6 @@ public class OrderService {
         }
         return false;
     }
-
-
 
 
 }

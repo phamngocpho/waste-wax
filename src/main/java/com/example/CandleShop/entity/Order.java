@@ -3,6 +3,7 @@ package com.example.CandleShop.entity;
 import com.example.CandleShop.enums.OrderStatus;
 import com.example.CandleShop.enums.PaymentStatus;
 import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,6 +25,9 @@ public class Order {
     private BigDecimal totalAmount;
     private BigDecimal shippingFee;
     private BigDecimal finalAmount;
+
+    @Column(name = "customer_email")
+    private String customerEmail;
     private String shippingAddress;
     private String shippingPhone;
     private String shippingName;
@@ -49,8 +53,10 @@ public class Order {
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
+
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     private List<Payment> payments = new ArrayList<>();
+
     // Constructors
     public Order() {
     }
@@ -120,6 +126,14 @@ public class Order {
         this.shippingPhone = shippingPhone;
     }
 
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
+    }
+
     public String getShippingName() {
         return shippingName;
     }
@@ -159,11 +173,22 @@ public class Order {
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
     }
-    public UserVoucher getUserVoucher() { return userVoucher; }
-    public void setUserVoucher(UserVoucher userVoucher) { this.userVoucher = userVoucher; }
 
-    public BigDecimal getDiscountAmount() { return discountAmount; }
-    public void setDiscountAmount(BigDecimal discountAmount) { this.discountAmount = discountAmount; }
+    public UserVoucher getUserVoucher() {
+        return userVoucher;
+    }
+
+    public void setUserVoucher(UserVoucher userVoucher) {
+        this.userVoucher = userVoucher;
+    }
+
+    public BigDecimal getDiscountAmount() {
+        return discountAmount;
+    }
+
+    public void setDiscountAmount(BigDecimal discountAmount) {
+        this.discountAmount = discountAmount;
+    }
 
 
     public List<Payment> getPayments() {

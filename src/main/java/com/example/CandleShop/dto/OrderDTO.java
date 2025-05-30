@@ -11,15 +11,17 @@ public class OrderDTO implements Serializable {
     private String shippingName;
     private String shippingAddress;
     private String shippingPhone;
+    private String customerEmail;
     private Long paymentMethodId;
 
     public OrderDTO() {
     }
 
-    public OrderDTO(String shippingName, String shippingAddress, String shippingPhone, Long paymentMethodId) {
+    public OrderDTO(String shippingName, String shippingAddress, String shippingPhone, String customerEmail, Long paymentMethodId) {
         this.shippingName = shippingName;
         this.shippingAddress = shippingAddress;
         this.shippingPhone = shippingPhone;
+        this.customerEmail = customerEmail;
         this.paymentMethodId = paymentMethodId;
     }
 
@@ -45,6 +47,14 @@ public class OrderDTO implements Serializable {
 
     public void setShippingPhone(String shippingPhone) {
         this.shippingPhone = shippingPhone;
+    }
+
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
     }
 
     public Long getPaymentMethodId() {
