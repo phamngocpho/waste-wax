@@ -1,0 +1,218 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.navbar-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 0 20px;
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out;
+    background-color: white;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 80px;
+    background-color: white;
+    height: 120px;
+
+    border-radius: 0 0 30px 30px;
+    border: 1px solid #e0e0e0;
+
+    /* Thêm shadow nhẹ để tạo độ nổi */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.nav-group {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem; /* Tăng khoảng cách giữa các menu item */
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url('../images/logo2.svg');
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #333;
+    font-size: 1.1rem; /* Tăng kích thước chữ */
+    font-weight: 500; /* Làm đậm chữ hơn */
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: #ff6b6b;
+}
+
+.icon-group {
+    display: flex;
+    align-items: center;
+    gap: 2rem; /* Tăng khoảng cách giữa các icon */
+}
+
+.icon-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+}
+
+.icon-link svg {
+    width: 26px; /* Tăng kích thước icon */
+    height: 26px; /* Tăng kích thước icon */
+    color: #534C45;
+    transition: color 0.3s;
+}
+
+.icon-link span {
+    font-size: 1rem; /* Tăng kích thước chữ */
+}
+
+.icon-link:hover svg {
+    color: #ff6b6b;
+}
+
+.icon-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #ff6b6b;
+    color: white;
+    font-size: 11px; /* Tăng kích thước chữ */
+    width: 18px; /* Tăng kích thước badge */
+    height: 18px; /* Tăng kích thước badge */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+}
+
+.hamburger-icon {
+    width: 28px; /* Tăng kích thước icon hamburger */
+    height: 3px;
+    background-color: #333;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.hamburger-icon::before,
+.hamburger-icon::after {
+    content: '';
+    position: absolute;
+    width: 28px; /* Tăng kích thước icon hamburger */
+    height: 3px;
+    background-color: #333;
+    transition: all 0.3s ease;
+}
+
+.hamburger-icon::before {
+    transform: translateY(-9px); /* Tăng khoảng cách */
+}
+
+.hamburger-icon::after {
+    transform: translateY(9px); /* Tăng khoảng cách */
+}
+
+@media (max-width: 1100px) {
+    .nav-group {
+        gap: 2rem;
+    }
+
+    .icon-group {
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 968px) {
+    .hamburger {
+        display: block;
+    }
+
+    .nav-group {
+        position: fixed;
+        top: 90px; /* Điều chỉnh theo chiều cao mới của navbar */
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 90px); /* Điều chỉnh theo chiều cao mới của navbar */
+        background-color: white;
+        flex-direction: column;
+        padding: 2rem;
+        transition: left 0.3s ease;
+        z-index: 1000;
+    }
+
+    .nav-group.active {
+        left: 0;
+    }
+
+    .navbar {
+        padding: 1.2rem; /* Tăng padding cho mobile */
+    }
+
+    .icon-group {
+        gap: 1.2rem;
+    }
+
+    .icon-link span {
+        display: none;
+    }
+}
+
+/* Hamburger animation classes */
+.hamburger.active .hamburger-icon {
+    background-color: transparent;
+}
+
+.hamburger.active .hamburger-icon::before {
+    transform: rotate(45deg) translate(0, 0);
+}
+
+.hamburger.active .hamburger-icon::after {
+    transform: rotate(-45deg) translate(0, 0);
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        height: 80px; /* Giảm chiều cao cho màn hình nhỏ */
+        padding: 15px 20px;
+    }
+
+    .logo {
+        width: 50px; /* Giảm kích thước logo cho màn hình nhỏ */
+        height: 50px;
+    }
+
+    .icon-group {
+        gap: 1rem;
+    }
+}
