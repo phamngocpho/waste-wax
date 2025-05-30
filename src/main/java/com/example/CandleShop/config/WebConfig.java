@@ -16,12 +16,12 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Cấu hình cho thư mục uploads (giữ nguyên cấu hình cũ)
         Path uploadDir = Paths.get(uploadPath);
+
         String uploadPathAbsolute = uploadDir.toFile().getAbsolutePath();
+
         registry.addResourceHandler("/uploads/**")
                 .addResourceLocations("file:" + uploadPathAbsolute + "/");
-        // Thêm cấu hình cho các tài nguyên tĩnh (CSS, JS, images)
         registry.addResourceHandler("/css/**")
                 .addResourceLocations("classpath:/static/css/");
 

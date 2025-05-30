@@ -12,10 +12,13 @@ import java.util.List;
 @Controller
 public class HomeController {
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
 
-    @GetMapping("/home")
+    public HomeController(ProductService productService) {
+        this.productService = productService;
+    }
+
+    @GetMapping({"/", "/home"})
     public String home(Model model) {
         List<Product> featuredProducts = productService.getFeaturedProducts();
         model.addAttribute("featuredProducts", featuredProducts);
