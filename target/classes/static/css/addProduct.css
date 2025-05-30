@@ -1,0 +1,54 @@
+
+body {
+    background-color: #f5f5f5;
+    background-image: url('../images/backgroundLogin.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.preview-image {
+    max-width: 100px;
+    max-height: 100px;
+    margin: 5px;
+    border-radius: 4px;
+}
+.image-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+.image-container {
+    position: relative;
+    display: inline-block;
+}
+.remove-image {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #ff4d4f;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 12px;
+}
+.required::after {
+    content: "*";
+    color: #ff4d4f;
+    margin-left: 4px;
+}
+.size-row {
+    background-color: #f9f9f9;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}

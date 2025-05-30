@@ -1,0 +1,16 @@
+/* Thêm vào file CSS hiện có */
+.forgot-password {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.forgot-password a {
+    color: #8B4513;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
